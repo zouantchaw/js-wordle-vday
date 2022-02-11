@@ -31,3 +31,10 @@ const keys = [
   'M',
   '«',
 ]
+
+keys.forEach(key => {
+  const buttonElement = document.createElement('button');
+  buttonElement.textContent = key
+  console.log(buttonElement)
+  keyboard.append(buttonElement)
+})
