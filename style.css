@@ -33,3 +33,13 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
+
+.key-container button {
+  width: 43px;
+  height: 58px;
+  border-radius: 4px;
+  border: none;
+  background-color: #818384;
+  /* color: #ffffff; */
+  margin: 4px;
+}
