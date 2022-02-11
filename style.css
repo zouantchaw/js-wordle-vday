@@ -67,3 +67,7 @@ body {
   align-items: center;
   margin: 2px;
 }
+
+.message-container {
+  height: 30px;
+}
