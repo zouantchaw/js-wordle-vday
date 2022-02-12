@@ -75,11 +75,13 @@ keys.forEach((key) => {
 const handleClick = (letter) => {
   console.log("clicked", letter);
   if (letter === "«") {
-    console.log("delete letter");
+    deleteLetter()
+    console.log("guessRows", guessRows);
     return;
   }
   if (letter === "ENTER") {
-    console.log("check row");
+    console.log("check row");+
+    console.log("guessRows", guessRows);
     return;
   }
   addLetter(letter);
@@ -95,16 +97,17 @@ const addLetter = (letter) => {
     guessRows[currentRow][currentTile] = letter;
     tile.setAttribute("data", letter);
     currentTile++;
-    console.log("guessRows", guessRows);
   }
 };
 
-const deleteLetter = ()=> {
-  currentTile--
-  const tile = document.getElementById(
-    "guessRow-" + currentRow + "-tile-" + currentTile
-  );
-  tile.textContent = ''
-  guessRows[currentRow][currentTile] = ''
-
-}
+const deleteLetter = () => {
+  if (currentTile > 0) {
+    currentTile--;
+    const tile = document.getElementById(
+      "guessRow-" + currentRow + "-tile-" + currentTile
+    );
+    tile.textContent = "";
+    guessRows[currentRow][currentTile] = "";
+    tile.setAttribute("data", "");
+  }
+};
