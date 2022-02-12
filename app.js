@@ -2,19 +2,19 @@ const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
 const messageDisplay = document.querySelector(".message-container");
 
-let wordle
+let wordle;
 
 const getWordle = () => {
   fetch("http://localhost:8000/word")
-    .then(response => response.json())
-    .then(json => {
-      console.log(json)
-      wordle = json.toUpperCase()
-      console.log('wordle', wordle)
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      wordle = json.toUpperCase();
+      console.log("wordle", wordle);
     })
-    .catch(err => console.log(err))
-}
-getWordle()
+    .catch((err) => console.log(err));
+};
+getWordle();
 
 const keys = [
   "Q",
@@ -127,25 +127,33 @@ const deleteLetter = () => {
 
 const checkRow = () => {
   const guess = guessRows[currentRow].join("");
-
   if (currentTile > 4) {
-    console.log("guess is " + guess, "wordle is " + wordle);
-    flipTile();
-    if (wordle == guess) {
-      showMessage("Magnificent!");
-      isGameOver = true;
-      return;
-    } else {
-      if (currentRow >= 5) {
-        isGameOver = false;
-        showMessage("Game Over");
-        return;
-      }
-      if (currentRow < 5) {
-        currentRow++;
-        currentTile = 0;
-      }
-    }
+    fetch(`http://localhost:8000/check/?word=${guess}`)
+      .then((response) => response.json())
+      .then((json) => {
+        if (json == "Entry word not found") {
+          showMessage("word not in list");
+          return;
+        } else {
+          flipTile();
+          if (wordle == guess) {
+            showMessage("Magnificent!");
+            isGameOver = true;
+            return;
+          } else {
+            if (currentRow >= 5) {
+              isGameOver = true;
+              showMessage("Game Over");
+              return;
+            }
+            if (currentRow < 5) {
+              currentRow++;
+              currentTile = 0;
+            }
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   }
 };
 
@@ -158,39 +166,38 @@ const showMessage = (message) => {
 };
 
 const addColorTokey = (keyLetter, color) => {
-  const key = document.getElementById(keyLetter)
-  key.classList.add(color)
-}
+  const key = document.getElementById(keyLetter);
+  key.classList.add(color);
+};
 
 const flipTile = () => {
   const rowTiles = document.querySelector("#guessRow-" + currentRow).childNodes;
-  let checkWordle = wordle
-  const guess = []
+  let checkWordle = wordle;
+  const guess = [];
 
-  rowTiles.forEach(tile => {
-    guess.push({ letter: tile.getAttribute('data'), color: 'grey-overlay'})
-  })
+  rowTiles.forEach((tile) => {
+    guess.push({ letter: tile.getAttribute("data"), color: "grey-overlay" });
+  });
 
   guess.forEach((guess, index) => {
     if (guess.letter == wordle[index]) {
-      guess.color = 'green-overlay'
-      checkWordle = checkWordle.replace(guess.letter, '')
+      guess.color = "green-overlay";
+      checkWordle = checkWordle.replace(guess.letter, "");
     }
-  })
+  });
 
-  guess.forEach(guess => {
+  guess.forEach((guess) => {
     if (checkWordle.includes(guess.letter)) {
-      guess.color = 'yellow-overlay'
-      checkWordle = checkWordle.replace(guess.letter, '')
+      guess.color = "yellow-overlay";
+      checkWordle = checkWordle.replace(guess.letter, "");
     }
-  })
-
+  });
 
   rowTiles.forEach((tile, index) => {
     setTimeout(() => {
-      tile.classList.add('flip')
-      tile.classList.add(guess[index].color)
-      addColorTokey(guess[index].letter, guess[index].color)
+      tile.classList.add("flip");
+      tile.classList.add(guess[index].color);
+      addColorTokey(guess[index].letter, guess[index].color);
     }, 500 * index);
   });
 };
