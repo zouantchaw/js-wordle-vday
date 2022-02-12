@@ -3,6 +3,7 @@
 const PORT = 8000;
 const axios = require("axios").default
 const express = require("express")
+require('dotenv').config()
 
 const app = express()
 
