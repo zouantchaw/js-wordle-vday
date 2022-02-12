@@ -1,6 +1,6 @@
 const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
-const messageDisplay = document.querySelector('.message-container')
+const messageDisplay = document.querySelector(".message-container");
 
 const wordle = "SUPER";
 
@@ -76,12 +76,12 @@ keys.forEach((key) => {
 const handleClick = (letter) => {
   console.log("clicked", letter);
   if (letter === "«") {
-    deleteLetter()
+    deleteLetter();
     console.log("guessRows", guessRows);
     return;
   }
   if (letter === "ENTER") {
-    checkRow()
+    checkRow();
     console.log("guessRows", guessRows);
     return;
   }
@@ -114,49 +114,51 @@ const deleteLetter = () => {
 };
 
 const checkRow = () => {
-  const guess = guessRows[currentRow].join('')
+  const guess = guessRows[currentRow].join("");
 
   if (currentTile > 4) {
-    console.log('guess is ' + guess, 'wordle is ' + wordle)
-    flipTile()
+    console.log("guess is " + guess, "wordle is " + wordle);
+    flipTile();
     if (wordle == guess) {
-      showMessage("Magnificent!")
-      isGameOver = true
-      return
+      showMessage("Magnificent!");
+      isGameOver = true;
+      return;
     } else {
       if (currentRow >= 5) {
-        isGameOver = false
-        showMessage('Game Over')
-        return
+        isGameOver = false;
+        showMessage("Game Over");
+        return;
       }
       if (currentRow < 5) {
-        currentRow++
-        currentTile = 0
+        currentRow++;
+        currentTile = 0;
       }
     }
   }
-}
+};
 
-const showMessage = (message)=> {
-  console.log('message:', message)
-  const messageElement = document.createElement('p')
-  messageElement.textContent = message
-  messageDisplay.append(messageElement)
-  setTimeout(() => messageDisplay.removeChild(messageElement), 2000)
-}
+const showMessage = (message) => {
+  console.log("message:", message);
+  const messageElement = document.createElement("p");
+  messageElement.textContent = message;
+  messageDisplay.append(messageElement);
+  setTimeout(() => messageDisplay.removeChild(messageElement), 2000);
+};
 
 const flipTile = () => {
-  const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
+  const rowTiles = document.querySelector("#guessRow-" + currentRow).childNodes;
   rowTiles.forEach((tile, index) => {
-    const dataLetter = tile.getAttribute('data')
-    console.log('dataLetter', dataLetter)
+    const dataLetter = tile.getAttribute("data");
 
-    if (dataLetter == wordle[index]) {
-      tile.classList.add('green-overlay')
-    } else if (wordle.includes(dataLetter)) {
-      tile.classList.add('yellow-overlay')
-    } else {
-      tile.classList.add('grey-overlay')
-    }
-  })
-}
+    setTimeout(() => {
+      tile.classList.add('flip')
+      if (dataLetter == wordle[index]) {
+        tile.classList.add("green-overlay");
+      } else if (wordle.includes(dataLetter)) {
+        tile.classList.add("yellow-overlay");
+      } else {
+        tile.classList.add("grey-overlay");
+      }
+    }, 500 * index);
+  });
+};
