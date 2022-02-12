@@ -26,6 +26,7 @@ body {
 .tile-container {
   width: 330px;
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .key-container {
@@ -70,6 +71,7 @@ body {
 
 .message-container {
   height: 30px;
+  margin: 10px;
 }
 
 .message-container p {
