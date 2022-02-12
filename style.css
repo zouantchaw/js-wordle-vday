@@ -81,6 +81,8 @@ body {
   margin: 0;
 }
 
+/* Order of the overlays are important */
+/* We want to be overide to green if tile is correct */
 .grey-overlay {
   background-color: #3a3a3c !important;
   border: none !important;
