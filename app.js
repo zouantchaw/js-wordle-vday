@@ -86,18 +86,20 @@ keys.forEach((key) => {
 });
 
 const handleClick = (letter) => {
-  console.log("clicked", letter);
-  if (letter === "«") {
-    deleteLetter();
-    console.log("guessRows", guessRows);
-    return;
+  if (!isGameOver) {
+    console.log("clicked", letter);
+    if (letter === "«") {
+      deleteLetter();
+      console.log("guessRows", guessRows);
+      return;
+    }
+    if (letter === "ENTER") {
+      checkRow();
+      console.log("guessRows", guessRows);
+      return;
+    }
+    addLetter(letter);
   }
-  if (letter === "ENTER") {
-    checkRow();
-    console.log("guessRows", guessRows);
-    return;
-  }
-  addLetter(letter);
 };
 
 const addLetter = (letter) => {
