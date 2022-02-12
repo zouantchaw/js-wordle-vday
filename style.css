@@ -81,6 +81,10 @@ body {
   margin: 0;
 }
 
+.tile.flip {
+  animation: 0, 5s linear flipping;
+}
+
 /* Order of the overlays are important */
 /* We want to be overide to green if tile is correct */
 .grey-overlay {
