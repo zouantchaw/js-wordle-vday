@@ -1,12 +1,12 @@
 /* All of file */
 * {
-  color: #ffffff;
+  color: black;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
 
 body {
-  background-color: #121213;
+  background-color: white;
 }
 
 .game-container {

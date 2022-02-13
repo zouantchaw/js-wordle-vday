@@ -2,19 +2,19 @@ const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
 const messageDisplay = document.querySelector(".message-container");
 
-let wordle;
+const wordle = 'SUPER'
 
-const getWordle = () => {
-  fetch("http://localhost:8000/word")
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      wordle = json.toUpperCase();
-      console.log("wordle", wordle);
-    })
-    .catch((err) => console.log(err));
-};
-getWordle();
+// const getWordle = () => {
+//   fetch("http://localhost:8000/word")
+//     .then((response) => response.json())
+//     .then((json) => {
+//       console.log(json);
+//       wordle = json.toUpperCase();
+//       console.log("wordle", wordle);
+//     })
+//     .catch((err) => console.log(err));
+// };
+// getWordle();
 
 const keys = [
   "Q",

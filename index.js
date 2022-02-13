@@ -4,11 +4,30 @@ const PORT = 8000;
 const axios = require("axios").default
 const express = require("express")
 const cors = require("cors")
+const morgan = require("morgan");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 require('dotenv').config()
 
 const app = express()
 
+// Logging
+app.use(morgan('dev'))
+
+// Authorization
+app.use('', (req, res, next) => {
+  if (req.headers.authorization) {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+})
+
+// Cors
 app.use(cors())
+
+app.get('/info', (req, res, next) => {
+  res.send('Hey tooo fron the proxyyyy')
+})
 
 app.get('/word', (req, res) => {
   const options = {
