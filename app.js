@@ -130,7 +130,11 @@ const deleteLetter = () => {
 const checkRow = () => {
   const guess = guessRows[currentRow].join("");
   if (currentTile > 4) {
-    fetch(`http://localhost:8000/check/?word=${guess}`)
+    fetch(`http://localhost:8000/check/?word=${guess}`, {
+      headers: {
+        'authorization': process.env.SERVER_API_KEY
+      }
+    })
       .then((response) => response.json())
       .then((json) => {
         if (json == "Entry word not found") {
