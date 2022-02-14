@@ -2,19 +2,19 @@ const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
 const messageDisplay = document.querySelector(".message-container");
 
-const wordle = 'SUPER'
+let wordle
 
-// const getWordle = () => {
-//   fetch("http://localhost:8000/word")
-//     .then((response) => response.json())
-//     .then((json) => {
-//       console.log(json);
-//       wordle = json.toUpperCase();
-//       console.log("wordle", wordle);
-//     })
-//     .catch((err) => console.log(err));
-// };
-// getWordle();
+const getWordle = () => {
+  fetch('http://localhost:8000/json_placeholder/word')
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      wordle = json.toUpperCase();
+      console.log("wordle", wordle);
+    })
+    .catch((err) => console.log(err));
+};
+getWordle();
 
 const keys = [
   "Q",
@@ -130,11 +130,7 @@ const deleteLetter = () => {
 const checkRow = () => {
   const guess = guessRows[currentRow].join("");
   if (currentTile > 4) {
-    fetch(`http://localhost:8000/check/?word=${guess}`, {
-      headers: {
-        'authorization': process.env.SERVER_API_KEY
-      }
-    })
+    fetch(`http://localhost:8000/json_placeholder/check/?word=${guess}`)
       .then((response) => response.json())
       .then((json) => {
         if (json == "Entry word not found") {
