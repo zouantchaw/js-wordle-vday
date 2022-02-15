@@ -27,6 +27,7 @@ body {
   width: 330px;
   margin-bottom: 30px;
   margin-top: 30px;
+  font-size: 2rem;
 }
 
 .key-container {
@@ -39,10 +40,12 @@ body {
   width: 43px;
   height: 58px;
   border-radius: 4px;
+  cursor: pointer;
   border: none;
-  background-color: #818384;
+  background-color: #d3d6da;
   /* color: #ffffff; */
   margin: 4px;
+  font-weight: bold;
 }
 
 .key-container button:nth-child(20),
