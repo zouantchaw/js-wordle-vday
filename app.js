@@ -2,6 +2,8 @@ const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
 const messageDisplay = document.querySelector(".message-container");
 
+const DANCE_ANIMATION_DURATION = 500
+
 //An infura ID, or custom ETH node is required for Ethereum
 var provider = new WalletConnectProvider.default({
   infuraId: "2d05279d9bf8421cb463bd4530c01121",
@@ -20,12 +22,12 @@ provider.enable().then( async res => {
   //awesome web3 application goes here
 
   let wordle;
+  let lastPlayed;
 
   const getWordle = () => {
     fetch("http://localhost:8000/json_placeholder/word")
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         wordle = json.toUpperCase();
         console.log("wordle", wordle);
       })
@@ -146,6 +148,10 @@ provider.enable().then( async res => {
 
   const checkRow = () => {
     const guess = guessRows[currentRow].join("");
+    const rowTiles = document.querySelector(
+      "#guessRow-" + currentRow
+    ).childNodes;
+    console.log('current row', guessRows[currentRow])
     if (currentTile > 4) {
       fetch(`http://localhost:8000/json_placeholder/check/?word=${guess}`)
         .then((response) => response.json())
@@ -157,12 +163,15 @@ provider.enable().then( async res => {
             flipTile();
             if (wordle == guess) {
               showMessage("Magnificent!");
+              danceTiles(rowTiles)
+              lastPlayed = new Date()
+              console.log(lastPlayed.getHours())
               isGameOver = true;
               return;
             } else {
               if (currentRow >= 5) {
                 isGameOver = true;
-                showMessage("Game Over");
+                showMessage(`Game Over! ${wordle}`);
                 return;
               }
               if (currentRow < 5) {
@@ -193,6 +202,7 @@ provider.enable().then( async res => {
     const rowTiles = document.querySelector(
       "#guessRow-" + currentRow
     ).childNodes;
+    console.log('rowTiles', rowTiles)
     let checkWordle = wordle;
     const guess = [];
 
@@ -222,4 +232,21 @@ provider.enable().then( async res => {
       }, 500 * index);
     });
   };
+
+  function danceTiles(tiles) {
+    tiles.forEach((tile, index) => {
+      setTimeout(() => {
+        tile.classList.add("dance")
+        tile.addEventListener(
+          "animationend",
+          () => {
+            tile.classList.remove("dance")
+          },
+          { once: true }
+        )
+      }, (index * DANCE_ANIMATION_DURATION) / 5)
+    })
+  }
 });
+
+
