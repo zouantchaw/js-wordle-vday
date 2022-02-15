@@ -148,12 +148,12 @@ body {
 }
 
 /* SVG styling and animation */
-svg {
+svg.heart {
   max-width: 10vw;
   max-height: 10vw;
 }
 
-svg path {
+svg.heart path {
   fill: red;
   stroke: red;
   stroke-width: 3.8;
