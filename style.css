@@ -85,6 +85,10 @@ body {
   animation: 0.5s linear flipping;
 }
 
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
 @keyframes flipping {
   0% {
     transform: rotateX(0deg);
@@ -94,6 +98,32 @@ body {
   }
   100% {
     transform: rotateX(8deg);
+  }
+}
+
+@keyframes dance {
+  20% {
+    transform: translateY(-50%);
+  }
+
+  40% {
+    transform: translateY(5%);
+  }
+
+  60% {
+    transform: translateY(-25%);
+  }
+
+  80% {
+    transform: translateY(2.5%);
+  }
+
+  90% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -112,4 +142,31 @@ body {
 .green-overlay {
   background-color: #538d4e !important;
   border: none !important;
+}
+
+/* SVG styling and animation */
+svg {
+  max-width: 10vw;
+  max-height: 10vw;
+}
+
+svg path {
+  fill: red;
+  stroke: red;
+  stroke-width: 3.8;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dash 3s linear infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  80% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
